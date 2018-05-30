@@ -26,26 +26,23 @@ public class Sudoku {
         List<IntVar> constraints = new ArrayList<>();
         //building constraints for rows i=rows j=columns; expected: v00 v01 v02 v03
         for (int i = 0; i < v.length; i++) {
-            if (!constraints.isEmpty()) {
-                store.impose(new Alldiff(constraints));
-                constraints.clear();
-            }
+
             for (int j = 0; j < v.length; j++) {
                 constraints.add(v[i][j]);
             }
+            store.impose(new Alldiff(constraints));
+            constraints.clear();
 
         }
         store.impose(new Alldiff(constraints));
         constraints.clear();
         //building constraints for columns expected: v00 v10 v20 v30
         for (int j = 0; j < v.length; j++) {
-            if (!constraints.isEmpty()) {
-                store.impose(new Alldiff(constraints));
-                constraints.clear();
-            }
             for (int i = 0; i < v.length; i++) {
                 constraints.add(v[i][j]);
             }
+            store.impose(new Alldiff(constraints));
+            constraints.clear();
 
         }
         store.impose(new Alldiff(constraints));
@@ -54,10 +51,6 @@ public class Sudoku {
         //selecting the block
         for (int i = 0; i < v.length; i = i + blocksize) {
             for (int j = 0; j < v.length; j = j + blocksize) {
-                if (!constraints.isEmpty()) {
-                    store.impose(new Alldiff(constraints));
-                    constraints.clear();
-                }
                 //building constraints for values inside a block; expected: v00,v01,v10,v11
                 for (int k = i; k <= i + blocksize - 1; k++) {
                     for (int l = j; l <= j + blocksize - 1; l++) { //2x2  i+1
@@ -68,6 +61,8 @@ public class Sudoku {
 
                     }
                 }
+                store.impose(new Alldiff(constraints));
+                constraints.clear();
             }
         }
         store.impose(new Alldiff(constraints));

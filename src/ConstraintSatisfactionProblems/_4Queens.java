@@ -50,7 +50,7 @@ public class _4Queens {
                 row++;
             }
             if (constraints.size() > 1) {
-                store.impose(new Max(constraints, new IntVar(store, "sum3", 1, 1)));
+                store.impose(new Sum(constraints, new IntVar(store, "sum3", 0, 1)));
             }
             constraints.clear();
         }
@@ -61,7 +61,7 @@ public class _4Queens {
                 column++;
             }
             if (constraints.size() > 1) {
-                store.impose(new Max(constraints, new IntVar(store, "sum4", 1, 1)));
+                store.impose(new Sum(constraints, new IntVar(store, "sum4", 0, 1)));
             }
             constraints.clear();
         }
@@ -73,7 +73,7 @@ public class _4Queens {
                 row++;
             }
             if (constraints.size() > 1) {
-                store.impose(new Max(constraints, new IntVar(store, "sum5", 1, 1)));
+                store.impose(new Sum(constraints, new IntVar(store, "sum5", 0, 1)));
             }
             constraints.clear();
         }
@@ -84,7 +84,7 @@ public class _4Queens {
                 column--;
             }
             if (constraints.size() > 1) {
-                store.impose(new Max(constraints, new IntVar(store, "sum6", 1, 1)));
+                store.impose(new Sum(constraints, new IntVar(store, "sum6", 0, 1)));
             }
             constraints.clear();
         }

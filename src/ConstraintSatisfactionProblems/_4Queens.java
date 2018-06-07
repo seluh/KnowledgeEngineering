@@ -3,6 +3,7 @@ package ConstraintSatisfactionProblems;
 import org.jacop.constraints.*;
 import org.jacop.core.IntVar;
 import org.jacop.core.Store;
+import org.jacop.search.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,28 +43,59 @@ public class _4Queens {
             constraints.clear();
         }
 
-
-        //Constraints for diagonal
-
-        for (int i = 0; i < v.length; i++) {
-            for (int j = 0; j < v.length; j++) {
-                constraints.add(v[i][j]);
-                int k = i;
-                for (int l = j; l < v.length; l++, k++) {
-                    try {
-                        constraints.add(v[k + 1][l + 1]);
-                    } catch (Exception E) {
-                        break;
-                    }
-
-                }
-                if (constraints.size() > 1) {
-                    store.impose(new Sum(constraints, sum));
-                }
-                constraints.clear();
+        //Constraints for diagonals \
+        for (int j = 0; j < v.length; j++) {
+            int row = 0;
+            for (int l = j; l < v.length; l++) {
+                constraints.add(v[row][l]);
+                row++;
             }
+            if (constraints.size() > 1) {
+                store.impose(new Max(constraints, sum));
+            }
+            constraints.clear();
+        }
+        for (int i = 1; i < v.length; i++) {
+            int column = 0;
+            for (int k = i; k < v.length; k++) {
+                constraints.add(v[k][column]);
+                column++;
+            }
+            if (constraints.size() > 1) {
+                store.impose(new Max(constraints, sum));
+            }
+            constraints.clear();
+        }
+            //TO-DO: Constraints for diagonals /
+        for (int j = v.length-1; j >=0 ; j--) {
+            int row = 0;
+            for (int l = j; l >=0; l--) {
+                constraints.add(v[row][l]);
+                row++;
+            }
+            if (constraints.size() > 1) {
+                store.impose(new Max(constraints, sum));
+            }
+            constraints.clear();
+        }
+        for (int i = 1; i < v.length-1; i++) {
+            int column = v.length-1;
+            for (int k = i; k < v.length; k++) {
+                constraints.add(v[k][column]);
+                column--;
+            }
+            if (constraints.size() > 1) {
+                store.impose(new Max(constraints, sum));
+            }
+            constraints.clear();
         }
         System.out.println(store.toString());
+
+        Search<IntVar> search = new DepthFirstSearch<IntVar>();
+        SelectChoicePoint<IntVar> select = new SimpleMatrixSelect<IntVar>(v, new SmallestMax<IntVar>(), new IndomainMin<IntVar>());
+        boolean result = search.labeling(store, select);
+        System.out.println(result);
+
     }
 
 

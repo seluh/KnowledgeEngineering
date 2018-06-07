@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class _4Queens {
-    private static final int size = 4;
+    private static final int size = 4;  //25 innerhalb von 60 sekunden möglich
 
     public static void main(String[] args) {
 

@@ -14,7 +14,6 @@ public class _4Queens {
     public static void main(String[] args) {
 
         Store store = new Store();
-        IntVar sum = new IntVar(store, "sum", 1, 1);
 
         IntVar[][] v = new IntVar[size][size];
         for (int i = 0; i < v.length; i++) {
@@ -30,7 +29,7 @@ public class _4Queens {
             for (int j = 0; j < v.length; j++) {
                 constraints.add(v[i][j]);
             }
-            store.impose(new Sum(constraints, sum));
+            store.impose(new Sum(constraints, new IntVar(store, "sum1", 1, 1)));
             constraints.clear();
         }
 
@@ -39,7 +38,7 @@ public class _4Queens {
             for (int i = 0; i < v.length; i++) {
                 constraints.add(v[i][j]);
             }
-            store.impose(new Sum(constraints, sum));
+            store.impose(new Sum(constraints, new IntVar(store, "sum2", 1, 1)));
             constraints.clear();
         }
 
@@ -51,7 +50,7 @@ public class _4Queens {
                 row++;
             }
             if (constraints.size() > 1) {
-                store.impose(new Max(constraints, sum));
+                store.impose(new Max(constraints, new IntVar(store, "sum3", 1, 1)));
             }
             constraints.clear();
         }
@@ -62,7 +61,7 @@ public class _4Queens {
                 column++;
             }
             if (constraints.size() > 1) {
-                store.impose(new Max(constraints, sum));
+                store.impose(new Max(constraints, new IntVar(store, "sum4", 1, 1)));
             }
             constraints.clear();
         }
@@ -74,7 +73,7 @@ public class _4Queens {
                 row++;
             }
             if (constraints.size() > 1) {
-                store.impose(new Max(constraints, sum));
+                store.impose(new Max(constraints, new IntVar(store, "sum5", 1, 1)));
             }
             constraints.clear();
         }
@@ -85,7 +84,7 @@ public class _4Queens {
                 column--;
             }
             if (constraints.size() > 1) {
-                store.impose(new Max(constraints, sum));
+                store.impose(new Max(constraints, new IntVar(store, "sum6", 1, 1)));
             }
             constraints.clear();
         }
